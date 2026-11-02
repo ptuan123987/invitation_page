@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Một buổi hẹn 💗</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="phone">
+
+    <!-- Màn hình lời mời -->
+    <section id="invite" class="screen active">
+        <h2>Gửi Chi một lời mời 💗</h2>
+        <p>Anh có một buổi hẹn nho nhỏ muốn dành cho Chi...</p>
+
+        <div class="photo-frame">
+            <img src="photo.jpg" alt="Ảnh kỷ niệm">
+        </div>
+
+        <div class="question">
+            Hôm tới mình đi chơi với nhau<br>
+            được khum?
+        </div>
+
+        <div class="actions">
+            <button class="yes" id="yesBtn">
+                Dạ cóoo 💕
+            </button>
+
+            <button class="no" id="noBtn">
+                Em bận rồi 🙈
+            </button>
+        </div>
+
+        <p class="hint">Thử bấm nút từ chối xem nào 😝</p>
+    </section>
+
+    <!-- Màn hình chọn lịch -->
+    <section id="booking" class="screen">
+        <h2>Mình chốt kèo thôi nào 💗</h2>
+
+        <p>Em chọn ngày nha, anh chiều hết luôn 💕</p>
+
+        <h4>Chọn ngày</h4>
+
+        <div class="calendar">
+            <div class="month-bar">
+                <button id="prevMonth">‹</button>
+                <strong id="monthTitle"></strong>
+                <button id="nextMonth">›</button>
+            </div>
+
+            <div class="week">
+                <span>T2</span><span>T3</span>
+                <span>T4</span><span>T5</span>
+                <span>T6</span><span>T7</span>
+                <span>CN</span>
+            </div>
+
+            <div class="days" id="days"></div>
+        </div>
+
+        <h4>Chọn giờ</h4>
+
+        <div class="time-box">
+            <input type="number" id="hour"
+                   min="0" max="23" value="18">
+            :
+            <input type="number" id="minute"
+                   min="0" max="59" value="00">
+        </div>
+
+        <button class="yes confirm" id="confirmBtn">
+            Chốt lịch 💞
+        </button>
+
+        <button class="back" id="backBtn">
+            ← Quay lại
+        </button>
+    </section>
+
+    <!-- Màn hình hoàn tất -->
+    <section id="done" class="screen">
+        <h1>💗 Kèo đã chốt!</h1>
+
+        <p id="summary"></p>
+
+        <button class="yes" id="exportBtn">
+            Tải dữ liệu về máy
+        </button>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
