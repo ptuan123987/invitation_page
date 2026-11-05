@@ -212,7 +212,26 @@ button {
     animation: cuteSpin 0.8s ease-in-out;
     pointer-events: none;
 }
+.food-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #dce5df;
+    border-radius: 15px;
+    margin-top: 10px;
+}
 
+.food-options label {
+    cursor: pointer;
+}
+
+#customFood {
+    padding: 10px;
+    border: 1px solid #e5d3dc;
+    border-radius: 10px;
+    font-size: 14px;
+}
 @keyframes cuteSpin {
     0% {
         transform: rotate(0deg) scale(1);

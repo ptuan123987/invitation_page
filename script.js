@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 
 // URL Google Apps Script
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzA-NnIFbVh_Yk107p1fgwP6qB0FfbaFGmnpSeD8L9p6C59ECukQXHEbd5Cpfkzq8X00g/exec";
+    "https://script.google.com/macros/s/AKfycbweyQT9_gERjzBCyvzy7FZ-Yx5HPyDHEHMAJd74XHBlzTkzJJqAnOvJ894WqJ3umwvczQ/exec"
 
 function showScreen(id) {
     document.querySelectorAll(".screen").forEach(screen => {
@@ -109,8 +109,19 @@ $("nextMonth").onclick = () => {
     currentMonth.setMonth(currentMonth.getMonth() + 1);
     renderCalendar();
 };
-
 renderCalendar();
+
+document.querySelectorAll('input[name="food"]').forEach(radio => {
+    radio.addEventListener("change", () => {
+        const customFood = $("customFood");
+
+        if (radio.value === "Theo ý em" && radio.checked) {
+            customFood.style.display = "block";
+        } else {
+            customFood.style.display = "none";
+        }
+    });
+});
 
 // Gửi dữ liệu lên Google Sheets
 async function saveToGoogleSheet(data) {
@@ -124,7 +135,7 @@ async function saveToGoogleSheet(data) {
     });
 
     // no-cors không đọc được phản hồi từ Google.
-    // Vì vậy không thể xác nhận chắc chắn dữ liệu đã được ghi.
+    
 }
 
 // Xác nhận đặt lịch
@@ -155,13 +166,30 @@ $("confirmBtn").onclick = async () => {
         String(hour).padStart(2, "0") + ":" +
         String(minute).padStart(2, "0");
 
+    const selectedFood = document.querySelector(
+        'input[name="food"]:checked'
+    );
+    
+    if (!selectedFood) {
+        alert("Em chưa chọn món ăn nhé 💗");
+        return;
+    }
+    
+    let food = selectedFood.value;
+    
+    if (food === "Theo ý em") {
+        food = $("customFood").value.trim() || "Theo ý em";
+    }
+
     const data = {
         date: date,
         time: time,
-        created: new Date().toLocaleString("vi-VN")
+        created: new Date().toLocaleString("vi-VN"),
+        food: food,
+       
     };
-
-    const confirmBtn = $("confirmBtn");
+    
+    console.log(data);
 
     confirmBtn.disabled = true;
     confirmBtn.classList.add("spinning");
@@ -178,6 +206,7 @@ $("confirmBtn").onclick = async () => {
         );
 
         bookings.push(data);
+        console.log(data)
 
         localStorage.setItem(
             "henHoBookings",
@@ -185,7 +214,7 @@ $("confirmBtn").onclick = async () => {
         );
 
         $("summary").textContent =
-            `Hẹn em ngày ${date}, lúc ${time} nhé 💕`;
+            `Hẹn em ngày ${date}, lúc ${time}. Mình đi ăn ${food} nhé 💕`;
 
         showScreen("done");
 
@@ -213,7 +242,7 @@ $("exportBtn").onclick = () => {
     const csv = [
         "Ngay hen,Gio hen,Thoi gian xac nhan",
         ...bookings.map(item =>
-            `${item.date},${item.time},${item.created}`
+            `${item.date},${item.time},${item.created},${item.food}`
         )
     ].join("\n");
 
